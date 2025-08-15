@@ -165,7 +165,7 @@
         <p class="text-xs text-gray-400" style="font-size: 10px;">DRIVERLESS VEHICLES</p>
       </div>
       <nav class="flex-1 flex flex-col text-white font-medium text-sm px-2 space-y-2" id="nav-section">
-        <button class="nav-button flex items-center gap-2 px-2 py-1 hover:bg-gray-700 rounded transition mt-2">
+    <button class="nav-button flex items-center gap-2 px-2 py-1 hover:bg-gray-700 rounded transition mt-2">
           <svg class="w-4 h-4" fill="white" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm10 8h8v-6h-8v6zm0-8h8v-6h-8v6z"/></svg>
           Dashboard
         </button>
@@ -350,10 +350,10 @@
         <h2 class="text-base font-semibold text-white mb-3 slick-font animate-on-scroll">Real-Time Data Feeds</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           
-          <!-- Live Alert Feed -->
-          <div class="bg-gray-800 p-4 shadow-lg overflow-hidden card-hover animate-on-scroll stagger-1" style="height: 350px;">
-            <h3 class="text-lg font-semibold text-gray-100 mb-2 flex items-center gap-2">
-              <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+          <!-- Live Alert Feed (Yellow theme) -->
+          <div class="bg-yellow-100/10 border-l-4 border-yellow-400 p-4 shadow-lg overflow-hidden card-hover animate-on-scroll stagger-1" style="height: 350px;">
+            <h3 class="text-lg font-semibold text-yellow-300 mb-2 flex items-center gap-2">
+              <div class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
               Live Alert Feed
             </h3>
             <div id="alertFeed" class="h-72 overflow-y-auto space-y-2 pr-2">
@@ -361,44 +361,44 @@
             </div>
           </div>
 
-          <!-- Real-Time Gauges -->
-          <div class="bg-gray-800 p-4 shadow-lg overflow-hidden card-hover animate-on-scroll stagger-1" style="height: 350px;">
-            <h3 class="text-lg font-semibold text-gray-100 mb-2">Vehicle Metrics</h3>
+          <!-- Real-Time Gauges (Purple theme) -->
+          <div class="bg-purple-100/10 border-l-4 border-purple-400 p-4 shadow-lg overflow-hidden card-hover animate-on-scroll stagger-1" style="height: 350px;">
+            <h3 class="text-lg font-semibold text-purple-300 mb-2">Vehicle Metrics</h3>
             <div class="space-y-4">
-              <!-- Speed Gauge -->
+              <!-- Speed Gauge - YELLOW -->
               <div class="relative">
                 <div class="flex justify-between items-center mb-1">
                   <span class="text-sm text-gray-300">AV-001 Speed</span>
-                  <span id="speedValue" class="text-sm font-bold text-blue-400">45 mph</span>
+                  <span id="speedValue" class="text-sm font-bold text-yellow-400">45 mph</span>
                 </div>
                 <div class="w-full bg-gray-700 rounded-full h-2">
-                  <div id="speedBar" class="bg-blue-400 h-2 rounded-full transition-all duration-500" style="width: 60%"></div>
+                  <div id="speedBar" class="bg-yellow-400 h-2 rounded-full transition-all duration-500" style="width: 60%"></div>
                 </div>
               </div>
               
-              <!-- Battery Gauge -->
+              <!-- Battery Gauge - PURPLE -->
               <div class="relative">
                 <div class="flex justify-between items-center mb-1">
                   <span class="text-sm text-gray-300">Battery Level</span>
-                  <span id="batteryValue" class="text-sm font-bold text-green-400">87%</span>
+                  <span id="batteryValue" class="text-sm font-bold text-purple-400">87%</span>
                 </div>
                 <div class="w-full bg-gray-700 rounded-full h-2">
-                  <div id="batteryBar" class="bg-green-400 h-2 rounded-full transition-all duration-500" style="width: 87%"></div>
+                  <div id="batteryBar" class="bg-purple-400 h-2 rounded-full transition-all duration-500" style="width: 87%"></div>
                 </div>
               </div>
               
-              <!-- Passenger Count -->
+              <!-- Passenger Count - ORANGE -->
               <div class="relative">
                 <div class="flex justify-between items-center mb-1">
                   <span class="text-sm text-gray-300">Passengers</span>
-                  <span id="passengerValue" class="text-sm font-bold text-purple-400">3/4</span>
+                  <span id="passengerValue" class="text-sm font-bold text-orange-400">3/4</span>
                 </div>
                 <div class="w-full bg-gray-700 rounded-full h-2">
-                  <div id="passengerBar" class="bg-purple-400 h-2 rounded-full transition-all duration-500" style="width: 75%"></div>
+                  <div id="passengerBar" class="bg-orange-400 h-2 rounded-full transition-all duration-500" style="width: 75%"></div>
                 </div>
               </div>
               
-              <!-- Engine Temperature -->
+              <!-- Engine Temperature - Keep original orange -->
               <div class="relative">
                 <div class="flex justify-between items-center mb-1">
                   <span class="text-sm text-gray-300">Engine Temp</span>
@@ -423,9 +423,9 @@
             </div>
           </div>
 
-          <!-- Live Status Cards -->
-          <div class="bg-gray-800 p-4 shadow-lg overflow-hidden card-hover animate-on-scroll stagger-1" style="height: 350px;">
-            <h3 class="text-lg font-semibold text-gray-100 mb-3">Fleet Status</h3>
+          <!-- Live Status Cards (Orange theme) -->
+          <div class="bg-orange-100/10 border-l-4 border-orange-400 p-4 shadow-lg overflow-hidden card-hover animate-on-scroll stagger-1" style="height: 350px;">
+            <h3 class="text-lg font-semibold text-orange-300 mb-3">Fleet Status</h3>
             <div class="h-72 overflow-y-auto pr-2 space-y-3">
               
               <!-- Weather Impact -->
@@ -538,7 +538,7 @@ const chartOptions = {
   responsive: true,
   maintainAspectRatio: false,
   animation: {
-    duration: 2000,
+    duration: 1800,
     easing: 'easeInOutQuart',
     delay: (context) => {
       return context.type === 'data' && context.mode === 'default' ? context.dataIndex * 150 : 0;
@@ -723,7 +723,16 @@ document.addEventListener('DOMContentLoaded', function() {
         fill: true
       }]
     },
-    options: chartOptions
+    options: {
+      ...chartOptions,
+      animation: {
+        duration: 3000,
+        easing: 'easeInOutQuart',
+        delay: (context) => {
+          return context.type === 'data' && context.mode === 'default' ? context.dataIndex * 150 : 0;
+        }
+      }
+    }
   });
 
   const ctx3 = document.getElementById('environmentChart').getContext('2d');
@@ -745,7 +754,16 @@ document.addEventListener('DOMContentLoaded', function() {
         fill: true
       }]
     },
-    options: chartOptions
+    options: {
+      ...chartOptions,
+      animation: {
+        duration: 3000,
+        easing: 'easeInOutQuart',
+        delay: (context) => {
+          return context.type === 'data' && context.mode === 'default' ? context.dataIndex * 150 : 0;
+        }
+      }
+    }
   });
 
   // Don't create doughnut chart immediately - wait for scroll
@@ -786,7 +804,7 @@ document.addEventListener('DOMContentLoaded', function() {
             responsive: true,
             maintainAspectRatio: false,
             animation: {
-              duration: 2000,
+              duration: 3000,
               easing: 'easeInOutQuart'
             },
             plugins: {
@@ -841,15 +859,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Radar Chart (Spider Chart) - scroll triggered
+  // Radar Chart (Blue theme)
   const ctx6 = document.getElementById('radarChart');
   let radarChart = null;
 
-  // Polar Area Chart - scroll triggered  
+  // Polar Area Chart (Pink theme)
   const ctx7 = document.getElementById('polarChart');
   let polarChart = null;
 
-  // Bubble Chart - scroll triggered
+  // Bubble Chart (Green theme)
   const ctx8 = document.getElementById('bubbleChart');
   let bubbleChart = null;
 
@@ -858,7 +876,8 @@ document.addEventListener('DOMContentLoaded', function() {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const chartId = entry.target.querySelector('canvas').id;
-        
+
+        // Radar Chart (Blue theme)
         if (chartId === 'radarChart' && !radarChart) {
           radarChart = new Chart(ctx6, {
             type: 'radar',
@@ -874,13 +893,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 pointBorderColor: '#1d4ed8',
                 pointRadius: 4
               }, {
-                label: 'Industry Average',
-                data: [75, 72, 78, 70, 68, 82],
-                backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                borderColor: '#ef4444',
+                label: 'Target Performance',
+                data: [85, 82, 88, 87, 80, 90],
+                backgroundColor: 'rgba(29, 78, 216, 0.1)',
+                borderColor: '#1d4ed8',
                 borderWidth: 2,
-                pointBackgroundColor: '#ef4444',
-                pointBorderColor: '#dc2626',
+                pointBackgroundColor: '#1d4ed8',
+                pointBorderColor: '#1e3a8a',
                 pointRadius: 3
               }]
             },
@@ -888,7 +907,7 @@ document.addEventListener('DOMContentLoaded', function() {
               responsive: true,
               maintainAspectRatio: false,
               animation: {
-                duration: 2000,
+                duration: 1700,
                 easing: 'easeInOutQuart'
               },
               plugins: {
@@ -923,7 +942,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           });
         }
-        
+
+        // Polar Area Chart (Pink theme)
         else if (chartId === 'polarChart' && !polarChart) {
           polarChart = new Chart(ctx7, {
             type: 'polarArea',
@@ -932,20 +952,20 @@ document.addEventListener('DOMContentLoaded', function() {
               datasets: [{
                 data: [45, 23, 12, 8, 15, 32],
                 backgroundColor: [
-                  'rgba(34, 197, 94, 0.6)',
-                  'rgba(251, 191, 36, 0.6)', 
-                  'rgba(239, 68, 68, 0.6)',
-                  'rgba(147, 51, 234, 0.6)',
-                  'rgba(59, 130, 246, 0.6)',
-                  'rgba(236, 72, 153, 0.6)'
+                  'rgba(236, 72, 153, 0.7)',
+                  'rgba(236, 72, 153, 0.6)',
+                  'rgba(236, 72, 153, 0.5)',
+                  'rgba(190, 24, 93, 0.7)',
+                  'rgba(190, 24, 93, 0.6)',
+                  'rgba(190, 24, 93, 0.5)'
                 ],
                 borderColor: [
-                  '#22c55e',
-                  '#fbbf24',
-                  '#ef4444',
-                  '#9333ea',
-                  '#3b82f6',
-                  '#ec4899'
+                  '#ec4899',
+                  '#ec4899',
+                  '#ec4899',
+                  '#be185d',
+                  '#be185d',
+                  '#be185d'
                 ],
                 borderWidth: 2
               }]
@@ -984,7 +1004,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           });
         }
-        
+
+        // Bubble Chart (Green theme)
         else if (chartId === 'bubbleChart' && !bubbleChart) {
           bubbleChart = new Chart(ctx8, {
             type: 'bubble',
@@ -1009,8 +1030,8 @@ document.addEventListener('DOMContentLoaded', function() {
                   {x: 32, y: 4.2, r: 19},
                   {x: 30, y: 3.5, r: 14}
                 ],
-                backgroundColor: 'rgba(59, 130, 246, 0.6)',
-                borderColor: '#3b82f6'
+                backgroundColor: 'rgba(34, 197, 94, 0.4)',
+                borderColor: '#22c55e'
               }, {
                 label: 'School Zones',
                 data: [
@@ -1019,8 +1040,8 @@ document.addEventListener('DOMContentLoaded', function() {
                   {x: 12, y: 0.5, r: 6},
                   {x: 20, y: 1.8, r: 12}
                 ],
-                backgroundColor: 'rgba(239, 68, 68, 0.6)',
-                borderColor: '#ef4444'
+                backgroundColor: 'rgba(21, 128, 61, 0.6)',
+                borderColor: '#15803d'
               }]
             },
             options: {
@@ -1078,7 +1099,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           });
         }
-        
+
         advancedChartsObserver.unobserve(entry.target);
       }
     });
