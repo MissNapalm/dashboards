@@ -15,89 +15,20 @@
       text-transform: uppercase;
     }
 
-    @keyframes fadeInUp {
+    @keyframes fadeInQuick {
       from {
         opacity: 0;
-        transform: translateY(30px);
       }
       to {
         opacity: 1;
-        transform: translateY(0);
       }
     }
-
-    @keyframes slideInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    @keyframes countUp {
-      from {
-        transform: scale(0.8);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    @keyframes slideInRight {
-      from {
-        opacity: 0;
-        transform: translateX(50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
+    .animate-fadein {
+      opacity: 0;
+      animation: fadeInQuick 0.3s ease-out forwards;
     }
     
-      /* Auto-triggered animations */
-      .animate-on-load {
-        animation: fadeInUp 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-      }
-    
-      /* Scroll-triggered animations */
-      .animate-on-scroll {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-    
-      .animate-on-scroll.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    
-      .animate-slow {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-    
-      .animate-slow.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    
-      .animate-slide-in {
-        animation: slideInLeft 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-      }
-      
-      .animate-pulse-subtle {
-        animation: pulse 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-      }
-      
-      .animate-count-up {
-        animation: countUp 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-      }
+  /* Remove all other animations */
     
     .card-hover {
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -130,16 +61,10 @@
     }
     
     .log-row {
-      animation: slideInRight 0.5s ease-out forwards;
+      /* No animation */
     }
     
-    /* Stagger delays for scroll animations */
-    .stagger-1 { transition-delay: 0.1s; }
-    .stagger-2 { transition-delay: 0.2s; }
-    .stagger-3 { transition-delay: 0.3s; }
-    .stagger-4 { transition-delay: 0.4s; }
-    .stagger-5 { transition-delay: 0.5s; }
-    .stagger-6 { transition-delay: 0.6s; }
+  /* Remove stagger delays */
   </style>
 </head>
 <body class="h-screen w-screen overflow-hidden font-sans bg-gray-900 text-gray-100">
@@ -529,7 +454,7 @@ const chartOptions = {
   responsive: true,
   maintainAspectRatio: false,
   animation: {
-    duration: 400,
+    duration: 0,
     easing: 'easeInOutQuart',
     delay: (context) => {
       return context.type === 'data' && context.mode === 'default' ? context.dataIndex * 150 : 0;
@@ -717,7 +642,7 @@ document.addEventListener('DOMContentLoaded', function() {
     options: {
       ...chartOptions,
       animation: {
-        duration: 3700,
+        duration: 0,
         easing: 'easeInOutQuart',
         delay: (context) => {
           return context.type === 'data' && context.mode === 'default' ? context.dataIndex * 150 : 0;
@@ -748,7 +673,7 @@ document.addEventListener('DOMContentLoaded', function() {
     options: {
       ...chartOptions,
       animation: {
-        duration: 3700,
+        duration: 0,
         easing: 'easeInOutQuart',
         delay: (context) => {
           return context.type === 'data' && context.mode === 'default' ? context.dataIndex * 150 : 0;
@@ -795,7 +720,7 @@ document.addEventListener('DOMContentLoaded', function() {
             responsive: true,
             maintainAspectRatio: false,
             animation: {
-              duration: 800,
+              duration: 0,
               easing: 'easeInOutQuart'
             },
             plugins: {
@@ -898,7 +823,7 @@ document.addEventListener('DOMContentLoaded', function() {
               responsive: true,
               maintainAspectRatio: false,
               animation: {
-                duration: 3700,
+                duration: 0,
                 easing: 'easeInOutQuart'
               },
               plugins: {
@@ -965,7 +890,7 @@ document.addEventListener('DOMContentLoaded', function() {
               responsive: true,
               maintainAspectRatio: false,
               animation: {
-                duration: 3700,
+                duration: 0,
                 easing: 'easeInOutQuart'
               },
               plugins: {
@@ -1039,7 +964,7 @@ document.addEventListener('DOMContentLoaded', function() {
               responsive: true,
               maintainAspectRatio: false,
               animation: {
-                duration: 3700,
+                duration: 0,
                 easing: 'easeInOutQuart'
               },
               plugins: {
