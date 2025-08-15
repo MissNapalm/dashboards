@@ -14,7 +14,7 @@
       letter-spacing: 0.05em;
       text-transform: uppercase;
     }
-    
+
     @keyframes fadeInUp {
       from {
         opacity: 0;
@@ -25,7 +25,7 @@
         transform: translateY(0);
       }
     }
-    
+
     @keyframes slideInLeft {
       from {
         opacity: 0;
@@ -36,16 +36,7 @@
         transform: translateX(0);
       }
     }
-    
-    @keyframes pulse {
-      0%, 100% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.7;
-      }
-    }
-    
+
     @keyframes countUp {
       from {
         transform: scale(0.8);
@@ -56,7 +47,7 @@
         opacity: 1;
       }
     }
-    
+
     @keyframes slideInRight {
       from {
         opacity: 0;
@@ -68,45 +59,45 @@
       }
     }
     
-    /* Auto-triggered animations */
-    .animate-on-load {
-      animation: fadeInUp 0.8s ease-out forwards;
-    }
+      /* Auto-triggered animations */
+      .animate-on-load {
+        animation: fadeInUp 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
     
-    /* Scroll-triggered animations */
-    .animate-on-scroll {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease-out;
-    }
+      /* Scroll-triggered animations */
+      .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
     
-    .animate-on-scroll.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+      .animate-on-scroll.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
     
-    .animate-slow {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 1.6s ease-out;
-    }
+      .animate-slow {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
     
-    .animate-slow.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+      .animate-slow.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
     
-    .animate-slide-in {
-      animation: slideInLeft 0.6s ease-out forwards;
-    }
-    
-    .animate-pulse-subtle {
-      animation: pulse 3s ease-in-out infinite;
-    }
-    
-    .animate-count-up {
-      animation: countUp 1s ease-out forwards;
-    }
+      .animate-slide-in {
+        animation: slideInLeft 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
+      
+      .animate-pulse-subtle {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      }
+      
+      .animate-count-up {
+        animation: countUp 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
     
     .card-hover {
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -538,7 +529,7 @@ const chartOptions = {
   responsive: true,
   maintainAspectRatio: false,
   animation: {
-    duration: 1800,
+    duration: 800,
     easing: 'easeInOutQuart',
     delay: (context) => {
       return context.type === 'data' && context.mode === 'default' ? context.dataIndex * 150 : 0;
@@ -726,7 +717,7 @@ document.addEventListener('DOMContentLoaded', function() {
     options: {
       ...chartOptions,
       animation: {
-        duration: 3000,
+        duration: 3700,
         easing: 'easeInOutQuart',
         delay: (context) => {
           return context.type === 'data' && context.mode === 'default' ? context.dataIndex * 150 : 0;
@@ -757,7 +748,7 @@ document.addEventListener('DOMContentLoaded', function() {
     options: {
       ...chartOptions,
       animation: {
-        duration: 3000,
+        duration: 3700,
         easing: 'easeInOutQuart',
         delay: (context) => {
           return context.type === 'data' && context.mode === 'default' ? context.dataIndex * 150 : 0;
@@ -804,7 +795,7 @@ document.addEventListener('DOMContentLoaded', function() {
             responsive: true,
             maintainAspectRatio: false,
             animation: {
-              duration: 3000,
+              duration: 3700,
               easing: 'easeInOutQuart'
             },
             plugins: {
@@ -907,7 +898,7 @@ document.addEventListener('DOMContentLoaded', function() {
               responsive: true,
               maintainAspectRatio: false,
               animation: {
-                duration: 1700,
+                duration: 2000,
                 easing: 'easeInOutQuart'
               },
               plugins: {
