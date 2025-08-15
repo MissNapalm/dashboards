@@ -529,7 +529,7 @@ const chartOptions = {
   responsive: true,
   maintainAspectRatio: false,
   animation: {
-    duration: 800,
+    duration: 50,
     easing: 'easeInOutQuart',
     delay: (context) => {
       return context.type === 'data' && context.mode === 'default' ? context.dataIndex * 150 : 0;
@@ -795,7 +795,7 @@ document.addEventListener('DOMContentLoaded', function() {
             responsive: true,
             maintainAspectRatio: false,
             animation: {
-              duration: 3700,
+              duration: 700,
               easing: 'easeInOutQuart'
             },
             plugins: {
