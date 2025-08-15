@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aupticon - Driverless Vehicle Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    .slick-font {
+      font-family: 'JetBrains Mono', 'Inter', monospace;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.7;
+      }
+    }
+    
+    @keyframes countUp {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    /* Auto-triggered animations */
+    .animate-on-load {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+    
+    /* Scroll-triggered animations */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+    
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .animate-slow {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1.6s ease-out;
+    }
+    
+    .animate-slow.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .animate-slide-in {
+      animation: slideInLeft 0.6s ease-out forwards;
+    }
+    
+    .animate-pulse-subtle {
+      animation: pulse 3s ease-in-out infinite;
+    }
+    
+    .animate-count-up {
+      animation: countUp 1s ease-out forwards;
+    }
+    
+    .card-hover {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nav-button {
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .nav-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.5s;
+    }
+    
+    .nav-button:hover::before {
+      left: 100%;
+    }
+    
+    .log-row {
+      animation: slideInRight 0.5s ease-out forwards;
+    }
+    
+    /* Stagger delays for scroll animations */
+    .stagger-1 { transition-delay: 0.1s; }
+    .stagger-2 { transition-delay: 0.2s; }
+    .stagger-3 { transition-delay: 0.3s; }
+    .stagger-4 { transition-delay: 0.4s; }
+    .stagger-5 { transition-delay: 0.5s; }
+    .stagger-6 { transition-delay: 0.6s; }
+  </style>
+</head>
+<body class="h-screen w-screen overflow-hidden font-sans bg-gray-900 text-gray-100">
+  <div class="flex h-full bg-gray-900">
+
+    <!-- 🚗 Left Navigation Panel -->
+    <aside class="w-48 bg-gray-800 text-white flex flex-col shadow-lg shadow-black animate-slide-in" id="sidebar">
+      <div style="height: 9px;"></div>
+      <div class="border-b border-gray-700 p-2 flex flex-col items-center" id="header-section">
+        <div class="flex items-center gap-1 mb-1">
+          <img src="logo.png.png" alt="Aupticon Logo" class="w-12 h-8">
+          <h1 class="text-xl font-bold text-white slick-font">AUPTICON</h1>
+        </div>
+        <p class="text-xs text-gray-400" style="font-size: 10px;">DRIVERLESS VEHICLES</p>
+      </div>
+      <nav class="flex-1 flex flex-col text-white font-medium text-sm px-2 space-y-2" id="nav-section">
+        <button class="nav-button flex items-center gap-2 px-2 py-1 hover:bg-gray-700 rounded transition mt-2">
+          <svg class="w-4 h-4" fill="white" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm10 8h8v-6h-8v6zm0-8h8v-6h-8v6z"/></svg>
+          Dashboard
+        </button>
+        <button class="nav-button flex items-center gap-2 px-2 py-1 hover:bg-gray-700 rounded transition">
+          <svg class="w-4 h-4" fill="white" viewBox="0 0 24 24"><path d="M3 4h18v2H3V4zm0 6h18v2H3v-2zm0 6h18v2H3v-2z"/></svg>
+          Fleet Overview
+        </button>
+        <button class="nav-button flex items-center gap-2 px-2 py-1 hover:bg-gray-700 rounded transition">
+          <svg class="w-4 h-4" fill="white" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+          Sensor Metrics
+        </button>
+        <button class="nav-button flex items-center gap-2 px-2 py-1 hover:bg-gray-700 rounded transition">
+          <svg class="w-4 h-4" fill="white" viewBox="0 0 24 24"><path d="M12 3L2 9l10 6 10-6-10-6z"/></svg>
+          Routes
+        </button>
+        <button class="nav-button flex items-center gap-2 px-2 py-1 hover:bg-gray-700 rounded transition">
+          <svg class="w-4 h-4" fill="white" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16"/></svg>
+          Reports
+        </button>
+        <button class="nav-button flex items-center gap-2 px-2 py-1 hover:bg-gray-700 rounded transition">
+          <svg class="w-4 h-4" fill="white" viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zm0-4h14v-2H5v2zm0-4h9v-2H5v2zm0-4h9V6H5v2z"/></svg>
+          Export CSV
+        </button>
+        <button class="nav-button flex items-center gap-2 px-2 py-1 hover:bg-gray-700 rounded transition">
+          <svg class="w-4 h-4" fill="white" viewBox="0 0 24 24"><path d="M4 4v16h16V4H4zm8 14l-5-5h3V9h4v4h3l-5 5z"/></svg>
+          Export PDF
+        </button>
+        <button class="nav-button flex items-center gap-2 px-2 py-1 hover:bg-gray-700 rounded transition">
+          <svg class="w-4 h-4 animate-pulse-subtle" fill="white" viewBox="0 0 24 24"><path d="M13 2v8h8a10 10 0 11-8-8z"/></svg>
+          Alerts
+        </button>
+        <button class="nav-button flex items-center gap-2 px-2 py-1 hover:bg-gray-700 rounded transition">
+          <svg class="w-4 h-4" fill="white" viewBox="0 0 24 24"><polygon points="12,1 15,6 9,6"/></svg>
+          Settings
+        </button>
+        
+        <!-- Theme Toggle Button -->
+        <div class="mt-auto mb-2">
+          <button id="themeToggle" class="nav-button flex items-center gap-2 px-2 py-1 hover:bg-gray-700 rounded transition w-full">
+            <svg id="darkIcon" class="w-4 h-4" fill="white" viewBox="0 0 24 24">
+              <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"/>
+            </svg>
+            <svg id="lightIcon" class="w-4 h-4 hidden" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z"/>
+            </svg>
+            <span id="themeText">Light Mode</span>
+          </button>
+        </div>
+        
+        <button class="nav-button flex items-center gap-2 px-2 py-1 hover:bg-gray-700 rounded transition">
+          <svg class="w-4 h-4" fill="white" viewBox="0 0 24 24"><path d="M16 13v-2H7v2h9zm1-8H6v2h11V5zm-3 14H9v-2h5v2z"/></svg>
+          Logout
+        </button>
+      </nav>
+    </aside>
+
+    <!-- 📊 Main Content Area -->
+    <main class="flex-1 overflow-y-auto p-6 bg-gray-900" style="padding-top: 1rem;" id="main-content">
+      
+      <!-- Top Snapshot Cards -->
+      <section class="mb-6">
+        <h2 class="text-base font-semibold text-white mb-3 slick-font animate-on-scroll">Fleet Overview</h2>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div class="bg-gray-800 p-2 shadow-lg overflow-hidden card-hover animate-on-scroll stagger-1" style="height: 70px;">
+            <h3 class="text-xs font-semibold text-gray-100 mb-1 truncate">Active Vehicles</h3>
+            <div class="flex items-center justify-between h-8">
+              <span class="text-lg font-bold text-orange-500 animate-count-up">24</span>
+              <div class="text-xs text-gray-400 text-right">
+                <div class="truncate">+2 yesterday</div>
+                <div class="text-lime-400 truncate">↗ 8.3%</div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-800 p-2 shadow-lg overflow-hidden card-hover animate-on-scroll stagger-2" style="height: 70px;">
+            <h3 class="text-xs font-semibold text-gray-100 mb-1 truncate">Safety Score</h3>
+            <div class="flex items-center justify-between h-8">
+              <span class="text-lg font-bold text-cyan-400 animate-count-up">98.7%</span>
+              <div class="text-xs text-gray-400 text-right">
+                <div class="truncate">Target: 95%</div>
+                <div class="text-emerald-400 truncate">↗ Exceeding</div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-800 p-2 shadow-lg overflow-hidden card-hover animate-on-scroll stagger-3" style="height: 70px;">
+            <h3 class="text-xs font-semibold text-gray-100 mb-1 truncate">Miles Today</h3>
+            <div class="flex items-center justify-between h-8">
+              <span class="text-lg font-bold text-purple-400 animate-count-up">1,247</span>
+              <div class="text-xs text-gray-400 text-right">
+                <div class="truncate">Prev: 1,156</div>
+                <div class="text-violet-400 truncate">↗ +91</div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-800 p-2 shadow-lg overflow-hidden card-hover animate-on-scroll stagger-4" style="height: 70px;">
+            <h3 class="text-xs font-semibold text-gray-100 mb-1 truncate">System Status</h3>
+            <div class="flex items-center justify-between h-8">
+              <span class="text-sm font-bold text-pink-400 animate-pulse-subtle">OPTIMAL</span>
+              <div class="text-xs text-gray-400 text-right">
+                <div class="truncate">Uptime: 99.9%</div>
+                <div class="text-rose-400 truncate">● All OK</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Middle charts (3 in a row) -->
+      <section class="mb-3">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-gray-800 p-4 shadow-lg overflow-hidden card-hover animate-on-scroll stagger-1" style="height: 340px;">
+            <h3 class="text-lg font-semibold text-gray-100 mb-2 truncate">Autonomy Success Rate</h3>
+            <div style="height: 280px; position: relative;">
+              <canvas id="twelveMonthChart" style="max-width: 100%; max-height: 100%;"></canvas>
+            </div>
+          </div>
+          <div class="bg-gray-800 p-4 shadow-lg overflow-hidden card-hover animate-on-scroll stagger-1" style="height: 340px;">
+            <h3 class="text-lg font-semibold text-gray-100 mb-2 truncate">Sensor Accuracy</h3>
+            <div style="height: 280px; position: relative;">
+              <canvas id="waterChart" style="max-width: 100%; max-height: 100%;"></canvas>
+            </div>
+          </div>
+          <div class="bg-gray-800 p-4 shadow-lg overflow-hidden card-hover animate-on-scroll stagger-1" style="height: 340px;">
+            <h3 class="text-lg font-semibold text-gray-100 mb-2 truncate">Energy Consumption</h3>
+            <div style="height: 280px; position: relative;">
+              <canvas id="environmentChart" style="max-width: 100%; max-height: 100%;"></canvas>
+            </div>
+          </div>
+        </div>
+        
+        <!-- MORE indicator -->
+        <div class="text-center mt-6 mb-2">
+          <div class="text-white font-semibold slick-font">MORE ↓</div>
+        </div>
+      </section>
+
+      <!-- Performance Insights (2 larger charts) -->
+      <section class="mb-8">
+        <h2 class="text-base font-semibold text-white mb-3 slick-font animate-on-scroll">Performance Insights</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-700 overflow-hidden card-hover animate-on-scroll stagger-1" style="height: 350px;">
+            <h3 class="text-lg font-semibold text-gray-100 mb-2 truncate">Route Efficiency</h3>
+            <div style="height: 290px; position: relative;">
+              <canvas id="yieldChart" style="max-width: 100%; max-height: 100%;"></canvas>
+            </div>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-700 overflow-hidden card-hover animate-on-scroll stagger-1" style="height: 350px;">
+            <h3 class="text-lg font-semibold text-gray-100 mb-2 truncate">Fleet Diagnostics</h3>
+            <div style="height: 290px; position: relative;">
+              <canvas id="soilChart" style="max-width: 100%; max-height: 100%;"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Advanced Analytics (3 advanced charts) -->
+      <section class="mb-8">
+        <h2 class="text-base font-semibold text-white mb-3 slick-font animate-on-scroll">Advanced Analytics</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-gray-800 p-4 shadow-lg overflow-hidden card-hover animate-on-scroll stagger-1" style="height: 350px;">
+            <h3 class="text-lg font-semibold text-gray-100 mb-2 truncate">Vehicle Performance Radar</h3>
+            <div style="height: 290px; position: relative;">
+              <canvas id="radarChart" style="max-width: 100%; max-height: 100%;"></canvas>
+            </div>
+          </div>
+          <div class="bg-gray-800 p-4 shadow-lg overflow-hidden card-hover animate-on-scroll stagger-1" style="height: 350px;">
+            <h3 class="text-lg font-semibold text-gray-100 mb-2 truncate">Safety Incidents Polar</h3>
+            <div style="height: 290px; position: relative;">
+              <canvas id="polarChart" style="max-width: 100%; max-height: 100%;"></canvas>
+            </div>
+          </div>
+          <div class="bg-gray-800 p-4 shadow-lg overflow-hidden card-hover animate-on-scroll stagger-1" style="height: 350px;">
+            <h3 class="text-lg font-semibold text-gray-100 mb-2 truncate">Speed Distribution Bubble</h3>
+            <div style="height: 290px; position: relative;">
+              <canvas id="bubbleChart" style="max-width: 100%; max-height: 100%;"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Real-Time Data Feeds -->
+      <section class="mb-8">
+        <h2 class="text-base font-semibold text-white mb-3 slick-font animate-on-scroll">Real-Time Data Feeds</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Live Alert Feed -->
+          <div class="bg-gray-800 p-4 shadow-lg overflow-hidden card-hover animate-on-scroll stagger-1" style="height: 350px;">
+            <h3 class="text-lg font-semibold text-gray-100 mb-2 flex items-center gap-2">
+              <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+              Live Alert Feed
+            </h3>
+            <div id="alertFeed" class="h-72 overflow-y-auto space-y-2 pr-2">
+              <!-- Alerts populated dynamically -->
+            </div>
+          </div>
+
+          <!-- Real-Time Gauges -->
+          <div class="bg-gray-800 p-4 shadow-lg overflow-hidden card-hover animate-on-scroll stagger-1" style="height: 350px;">
+            <h3 class="text-lg font-semibold text-gray-100 mb-2">Vehicle Metrics</h3>
+            <div class="space-y-4">
+              <!-- Speed Gauge -->
+              <div class="relative">
+                <div class="flex justify-between items-center mb-1">
+                  <span class="text-sm text-gray-300">AV-001 Speed</span>
+                  <span id="speedValue" class="text-sm font-bold text-blue-400">45 mph</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div id="speedBar" class="bg-blue-400 h-2 rounded-full transition-all duration-500" style="width: 60%"></div>
+                </div>
+              </div>
+              
+              <!-- Battery Gauge -->
+              <div class="relative">
+                <div class="flex justify-between items-center mb-1">
+                  <span class="text-sm text-gray-300">Battery Level</span>
+                  <span id="batteryValue" class="text-sm font-bold text-green-400">87%</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div id="batteryBar" class="bg-green-400 h-2 rounded-full transition-all duration-500" style="width: 87%"></div>
+                </div>
+              </div>
+              
+              <!-- Passenger Count -->
+              <div class="relative">
+                <div class="flex justify-between items-center mb-1">
+                  <span class="text-sm text-gray-300">Passengers</span>
+                  <span id="passengerValue" class="text-sm font-bold text-purple-400">3/4</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div id="passengerBar" class="bg-purple-400 h-2 rounded-full transition-all duration-500" style="width: 75%"></div>
+                </div>
+              </div>
+              
+              <!-- Engine Temperature -->
+              <div class="relative">
+                <div class="flex justify-between items-center mb-1">
+                  <span class="text-sm text-gray-300">Engine Temp</span>
+                  <span id="tempValue" class="text-sm font-bold text-orange-400">185°F</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div id="tempBar" class="bg-orange-400 h-2 rounded-full transition-all duration-500" style="width: 62%"></div>
+                </div>
+              </div>
+              
+              <!-- Live Counters -->
+              <div class="grid grid-cols-2 gap-4 mt-6">
+                <div class="bg-gray-700 p-3 rounded-lg text-center">
+                  <div id="milesCounter" class="text-xl font-bold text-cyan-400">1,247</div>
+                  <div class="text-xs text-gray-400">Miles Today</div>
+                </div>
+                <div class="bg-gray-700 p-3 rounded-lg text-center">
+                  <div id="tripsCounter" class="text-xl font-bold text-pink-400">156</div>
+                  <div class="text-xs text-gray-400">Trips Today</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Status Cards -->
+          <div class="bg-gray-800 p-4 shadow-lg overflow-hidden card-hover animate-on-scroll stagger-1" style="height: 350px;">
+            <h3 class="text-lg font-semibold text-gray-100 mb-3">Fleet Status</h3>
+            <div class="h-72 overflow-y-auto pr-2 space-y-3">
+              
+              <!-- Weather Impact -->
+              <div class="bg-gray-700 p-3 rounded-lg">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm font-medium text-gray-200">Weather Impact</span>
+                  <span id="weatherIcon" class="text-lg">☀️</span>
+                </div>
+                <div class="text-xs text-gray-400">
+                  <span id="weatherDesc">Clear skies, optimal conditions</span>
+                </div>
+                <div class="mt-1">
+                  <span id="weatherTemp" class="text-sm font-bold text-yellow-400">72°F</span>
+                  <span class="text-xs text-gray-400 ml-2">Visibility: 10mi</span>
+                </div>
+              </div>
+              
+              <!-- Traffic Conditions -->
+              <div class="bg-gray-700 p-3 rounded-lg">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm font-medium text-gray-200">Traffic Conditions</span>
+                  <div id="trafficStatus" class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                </div>
+                <div class="text-xs text-gray-400">
+                  <span id="trafficDesc">Light traffic on major routes</span>
+                </div>
+                <div class="mt-1">
+                  <span id="avgSpeed" class="text-sm font-bold text-green-400">Normal Flow</span>
+                  <span class="text-xs text-gray-400 ml-2">Avg: 35mph</span>
+                </div>
+              </div>
+              
+              <!-- Charging Network -->
+              <div class="bg-gray-700 p-3 rounded-lg">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm font-medium text-gray-200">Charging Network</span>
+                  <span class="text-sm font-bold text-blue-400">⚡</span>
+                </div>
+                <div class="text-xs text-gray-400">
+                  <span id="chargingAvailable">12 stations available</span>
+                </div>
+                <div class="mt-1">
+                  <span id="chargingQueue" class="text-sm font-bold text-blue-400">No wait</span>
+                  <span class="text-xs text-gray-400 ml-2">Avg: 15min</span>
+                </div>
+              </div>
+              
+              <!-- Emergency Services -->
+              <div class="bg-gray-700 p-3 rounded-lg">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm font-medium text-gray-200">Emergency Status</span>
+                  <div id="emergencyStatus" class="w-3 h-3 bg-green-400 rounded-full"></div>
+                </div>
+                <div class="text-xs text-gray-400">
+                  <span id="emergencyDesc">All systems operational</span>
+                </div>
+                <div class="mt-1">
+                  <span id="responseTime" class="text-sm font-bold text-green-400">< 30s</span>
+                  <span class="text-xs text-gray-400 ml-2">Response time</span>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Logs -->
+      <section class="mt-10">
+        <h2 class="text-base font-semibold text-white mb-3 slick-font animate-on-scroll">Recent Activity Logs</h2>
+        <div class="overflow-auto bg-gray-800 shadow-md max-h-96 animate-on-scroll stagger-1">
+          <table class="min-w-full divide-y divide-gray-700 text-gray-200">
+            <thead class="bg-gray-700 text-sm uppercase font-semibold sticky top-0">
+              <tr>
+                <th class="px-4 py-2 text-left truncate">Timestamp</th>
+                <th class="px-4 py-2 text-left truncate">Fleet</th>
+                <th class="px-4 py-2 text-left truncate">Temperature</th>
+                <th class="px-4 py-2 text-left truncate">Humidity</th>
+                <th class="px-4 py-2 text-left truncate">Location</th>
+                <th class="px-4 py-2 text-left truncate">Status</th>
+              </tr>
+            </thead>
+            <tbody id="dataTableBody" class="text-sm divide-y divide-gray-800">
+              <!-- Populated dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+// Intersection Observer for viewport-triggered animations
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, observerOptions);
+
+// Chart configuration with enhanced animations
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  animation: {
+    duration: 2000,
+    easing: 'easeInOutQuart',
+    delay: (context) => {
+      return context.type === 'data' && context.mode === 'default' ? context.dataIndex * 150 : 0;
+    }
+  },
+  plugins: {
+    legend: {
+      display: true,
+      position: 'top',
+      labels: {
+        color: '#e5e7eb',
+        font: {
+          size: 11
+        }
+      }
+    }
+  },
+  scales: {
+    x: {
+      grid: {
+        color: 'rgba(75, 85, 99, 0.3)'
+      },
+      ticks: {
+        color: '#9ca3af',
+        font: {
+          size: 10
+        }
+      }
+    },
+    y: {
+      grid: {
+        color: 'rgba(75, 85, 99, 0.3)'
+      },
+      ticks: {
+        color: '#9ca3af',
+        font: {
+          size: 10
+        }
+      }
+    }
+  },
+  elements: {
+    point: {
+      radius: 2,
+      hoverRadius: 4
+    },
+    line: {
+      borderWidth: 2,
+      tension: 0.4
+    }
+  }
+};
+
+// Initialize charts and observers when page loads
+document.addEventListener('DOMContentLoaded', function() {
+  // Set up intersection observer for scroll animations
+  const animatedElements = document.querySelectorAll('.animate-on-scroll');
+  animatedElements.forEach(el => observer.observe(el));
+
+  // Populate Recent Activity Logs
+  const tableBody = document.getElementById('dataTableBody');
+  const logData = [
+    { timestamp: '2025-01-23 14:32:18', fleet: 'AV-001', temperature: '72°F', humidity: '45%', location: 'Downtown Route 5', status: 'Active' },
+    { timestamp: '2025-01-23 14:31:45', fleet: 'AV-012', temperature: '68°F', humidity: '52%', location: 'Highway I-95 North', status: 'Charging' },
+    { timestamp: '2025-01-23 14:30:22', fleet: 'AV-007', temperature: '75°F', humidity: '38%', location: 'Airport Shuttle', status: 'Active' },
+    { timestamp: '2025-01-23 14:29:01', fleet: 'AV-003', temperature: '70°F', humidity: '49%', location: 'University Campus', status: 'Maintenance' },
+    { timestamp: '2025-01-23 14:28:33', fleet: 'AV-018', temperature: '73°F', humidity: '43%', location: 'Medical District', status: 'Active' },
+    { timestamp: '2025-01-23 14:27:12', fleet: 'AV-005', temperature: '69°F', humidity: '55%', location: 'Shopping Center', status: 'Override' },
+    { timestamp: '2025-01-23 14:26:48', fleet: 'AV-014', temperature: '71°F', humidity: '41%', location: 'Residential Zone A', status: 'Active' },
+    { timestamp: '2025-01-23 14:25:19', fleet: 'AV-009', temperature: '74°F', humidity: '47%', location: 'Business District', status: 'Active' },
+    { timestamp: '2025-01-23 14:24:57', fleet: 'AV-021', temperature: '67°F', humidity: '58%', location: 'Industrial Park', status: 'Charging' },
+    { timestamp: '2025-01-23 14:23:34', fleet: 'AV-016', temperature: '72°F', humidity: '44%', location: 'Sports Complex', status: 'Active' },
+    { timestamp: '2025-01-23 14:22:11', fleet: 'AV-006', temperature: '70°F', humidity: '50%', location: 'Train Station', status: 'Waiting' },
+    { timestamp: '2025-01-23 14:21:45', fleet: 'AV-013', temperature: '73°F', humidity: '42%', location: 'City Center Loop', status: 'Active' },
+    { timestamp: '2025-01-23 14:20:28', fleet: 'AV-008', temperature: '68°F', humidity: '53%', location: 'Waterfront Drive', status: 'Active' },
+    { timestamp: '2025-01-23 14:19:03', fleet: 'AV-020', temperature: '75°F', humidity: '39%', location: 'Tech Campus', status: 'Override' },
+    { timestamp: '2025-01-23 14:18:41', fleet: 'AV-002', temperature: '71°F', humidity: '46%', location: 'Suburban Route 12', status: 'Active' }
+  ];
+
+  function getStatusColor(status) {
+    switch(status.toLowerCase()) {
+      case 'active': return 'text-green-400';
+      case 'charging': return 'text-blue-400';
+      case 'maintenance': return 'text-yellow-400';
+      case 'override': return 'text-red-400';
+      case 'waiting': return 'text-gray-400';
+      default: return 'text-gray-300';
+    }
+  }
+
+  function getStatusIcon(status) {
+    switch(status.toLowerCase()) {
+      case 'active': return '●';
+      case 'charging': return '⚡';
+      case 'maintenance': return '🔧';
+      case 'override': return '⚠️';
+      case 'waiting': return '⏸️';
+      default: return '●';
+    }
+  }
+
+  logData.forEach((row, index) => {
+    const tr = document.createElement('tr');
+    tr.className = `hover:bg-gray-700 transition-colors log-row`;
+    tr.style.animationDelay = `${index * 0.05}s`;
+    
+    tr.innerHTML = `
+      <td class="px-4 py-2 font-mono text-xs">${row.timestamp}</td>
+      <td class="px-4 py-2 font-semibold">${row.fleet}</td>
+      <td class="px-4 py-2">${row.temperature}</td>
+      <td class="px-4 py-2">${row.humidity}</td>
+      <td class="px-4 py-2 truncate max-w-48">${row.location}</td>
+      <td class="px-4 py-2">
+        <span class="flex items-center gap-1 ${getStatusColor(row.status)}">
+          <span class="text-xs">${getStatusIcon(row.status)}</span>
+          <span class="font-medium">${row.status}</span>
+        </span>
+      </td>
+    `;
+    
+    tableBody.appendChild(tr);
+  });
+
+  // Add real-time update simulation
+  setInterval(() => {
+    const rows = tableBody.querySelectorAll('tr');
+    if (rows.length > 0) {
+      // Update first row with new timestamp
+      const firstRow = rows[0];
+      const now = new Date();
+      const timestamp = now.toISOString().slice(0, 19).replace('T', ' ');
+      firstRow.cells[0].textContent = timestamp;
+      
+      // Randomly update a temperature
+      const randomRow = rows[Math.floor(Math.random() * Math.min(5, rows.length))];
+      const currentTemp = parseInt(randomRow.cells[2].textContent);
+      const newTemp = currentTemp + (Math.random() > 0.5 ? 1 : -1);
+      randomRow.cells[2].textContent = `${newTemp}°F`;
+    }
+  }, 3000); // Update every 3 seconds
+
+  // Rest of your existing chart code
+  const ctx1 = document.getElementById('twelveMonthChart').getContext('2d');
+  new Chart(ctx1, {
+    type: 'line',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+      datasets: [{
+        label: 'Planned Routes',
+        data: [32.1, 35.4, 31.8, 38.6, 42.3, 39.7, 45.2, 48.1, 44.6, 51.3, 54.8, 52.4, 57.9, 61.2, 58.7, 64.3, 67.1, 65.8, 69.4, 71.7, 68.9, 73.2],
+        borderColor: '#f97316',
+        backgroundColor: 'rgba(249, 115, 22, 0.3)',
+        fill: true,
+        type: 'line'
+      }, {
+        label: 'Emergency Override',
+        data: [67.9, 64.6, 68.2, 61.4, 57.7, 60.3, 54.8, 51.9, 55.4, 48.7, 45.2, 47.6, 42.1, 38.8, 41.3, 35.7, 32.9, 34.2, 30.6, 28.3, 31.1, 26.8],
+        borderColor: '#fb923c',
+        backgroundColor: 'rgba(251, 146, 60, 0.6)',
+        type: 'bar'
+      }]
+    },
+    options: chartOptions
+  });
+  
+  const ctx2 = document.getElementById('waterChart').getContext('2d');
+  new Chart(ctx2, {
+    type: 'line',
+    data: {
+      labels: ['6AM', '9AM', '12PM', '3PM', '6PM', '9PM', '12AM'],
+      datasets: [{
+        label: 'LiDAR Accuracy',
+        data: [96.8, 94.2, 97.5, 89.7, 93.1, 98.2, 95.4],
+        borderColor: '#8b5cf6',
+        backgroundColor: 'rgba(139, 92, 246, 0.3)',
+        fill: true
+      }, {
+        label: 'Camera Vision',
+        data: [78.3, 82.7, 75.9, 84.1, 71.5, 79.8, 83.6],
+        borderColor: '#a78bfa',
+        backgroundColor: 'rgba(167, 139, 250, 0.2)',
+        fill: true
+      }]
+    },
+    options: chartOptions
+  });
+
+  const ctx3 = document.getElementById('environmentChart').getContext('2d');
+  new Chart(ctx3, {
+    type: 'line',
+    data: {
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      datasets: [{
+        label: 'Battery Usage (kWh)',
+        data: [342.7, 298.5, 376.2, 289.8, 401.3, 195.7, 223.9],
+        borderColor: '#ec4899',
+        backgroundColor: 'rgba(236, 72, 153, 0.3)',
+        fill: true
+      }, {
+        label: 'Regenerative Charging',
+        data: [48.3, 52.7, 41.9, 55.2, 39.8, 28.4, 31.7],
+        borderColor: '#f472b6',
+        backgroundColor: 'rgba(244, 114, 182, 0.2)',
+        fill: true
+      }]
+    },
+    options: chartOptions
+  });
+
+  // Don't create doughnut chart immediately - wait for scroll
+  const ctx4 = document.getElementById('yieldChart');
+  let yieldChart = null;
+
+  // Special observer for the doughnut chart
+  const chartObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !yieldChart) {
+        // Create the chart when it becomes visible
+        yieldChart = new Chart(ctx4, {
+          type: 'doughnut',
+          data: {
+            labels: ['Optimal Routes', 'Highway', 'City Streets', 'Traffic Delays', 'Construction', 'Weather Impact'],
+            datasets: [{
+              data: [84.2, 12.7, 8.9, 6.4, 3.1, 2.8],
+              backgroundColor: [
+                '#3b82f6',
+                '#60a5fa',
+                '#93c5fd',
+                '#dbeafe',
+                '#eff6ff',
+                '#f8fafc'
+              ],
+              borderColor: [
+                '#1d4ed8',
+                '#2563eb',
+                '#3b82f6',
+                '#60a5fa',
+                '#93c5fd',
+                '#cbd5e1'
+              ],
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: {
+              duration: 2000,
+              easing: 'easeInOutQuart'
+            },
+            plugins: {
+              legend: {
+                position: 'right',
+                labels: {
+                  color: '#e5e7eb',
+                  font: {
+                    size: 11
+                  },
+                  padding: 15
+                }
+              }
+            }
+          }
+        });
+        chartObserver.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  });
+
+  // Observe the doughnut chart container
+  const yieldChartContainer = document.getElementById('yieldChart').closest('.animate-on-scroll');
+  if (yieldChartContainer) {
+    chartObserver.observe(yieldChartContainer);
+  }
+
+  const ctx5 = document.getElementById('soilChart');
+  if (ctx5) {
+    new Chart(ctx5, {
+      type: 'line',
+      data: {
+        labels: ['6AM', '9AM', '12PM', '3PM', '6PM', '9PM', '12AM', '3AM'],
+        datasets: [{
+          label: 'Active Vehicles',
+          data: [7, 15, 23, 19, 21, 13, 6, 3],
+          borderColor: '#14b8a6',
+          backgroundColor: 'rgba(20, 184, 166, 0.3)',
+          fill: true
+        }, {
+          label: 'Maintenance Queue',
+          data: [3, 2, 1, 4, 2, 5, 7, 6],
+          borderColor: '#5eead4',
+          backgroundColor: 'rgba(94, 234, 212, 0.2)',
+          fill: true
+        }]
+      },
+      options: chartOptions
+    });
+  }
+
+  // Radar Chart (Spider Chart) - scroll triggered
+  const ctx6 = document.getElementById('radarChart');
+  let radarChart = null;
+
+  // Polar Area Chart - scroll triggered  
+  const ctx7 = document.getElementById('polarChart');
+  let polarChart = null;
+
+  // Bubble Chart - scroll triggered
+  const ctx8 = document.getElementById('bubbleChart');
+  let bubbleChart = null;
+
+  // Advanced charts observer
+  const advancedChartsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const chartId = entry.target.querySelector('canvas').id;
+        
+        if (chartId === 'radarChart' && !radarChart) {
+          radarChart = new Chart(ctx6, {
+            type: 'radar',
+            data: {
+              labels: ['Speed Control', 'Obstacle Detection', 'Lane Keeping', 'Traffic Response', 'Weather Adaptation', 'Emergency Braking'],
+              datasets: [{
+                label: 'Current Fleet',
+                data: [92, 88, 85, 91, 76, 94],
+                backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                borderColor: '#3b82f6',
+                borderWidth: 2,
+                pointBackgroundColor: '#3b82f6',
+                pointBorderColor: '#1d4ed8',
+                pointRadius: 4
+              }, {
+                label: 'Industry Average',
+                data: [75, 72, 78, 70, 68, 82],
+                backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                borderColor: '#ef4444',
+                borderWidth: 2,
+                pointBackgroundColor: '#ef4444',
+                pointBorderColor: '#dc2626',
+                pointRadius: 3
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              animation: {
+                duration: 2000,
+                easing: 'easeInOutQuart'
+              },
+              plugins: {
+                legend: {
+                  position: 'top',
+                  labels: {
+                    color: '#e5e7eb',
+                    font: {
+                      size: 10
+                    }
+                  }
+                }
+              },
+              scales: {
+                r: {
+                  beginAtZero: true,
+                  max: 100,
+                  ticks: {
+                    color: '#9ca3af',
+                    font: {
+                      size: 9
+                    }
+                  },
+                  grid: {
+                    color: 'rgba(75, 85, 99, 0.3)'
+                  },
+                  angleLines: {
+                    color: 'rgba(75, 85, 99, 0.3)'
+                  }
+                }
+              }
+            }
+          });
+        }
+        
+        else if (chartId === 'polarChart' && !polarChart) {
+          polarChart = new Chart(ctx7, {
+            type: 'polarArea',
+            data: {
+              labels: ['Minor Alerts', 'Lane Drift', 'Speed Violation', 'Sensor Failure', 'Weather Events', 'Maintenance'],
+              datasets: [{
+                data: [45, 23, 12, 8, 15, 32],
+                backgroundColor: [
+                  'rgba(34, 197, 94, 0.6)',
+                  'rgba(251, 191, 36, 0.6)', 
+                  'rgba(239, 68, 68, 0.6)',
+                  'rgba(147, 51, 234, 0.6)',
+                  'rgba(59, 130, 246, 0.6)',
+                  'rgba(236, 72, 153, 0.6)'
+                ],
+                borderColor: [
+                  '#22c55e',
+                  '#fbbf24',
+                  '#ef4444',
+                  '#9333ea',
+                  '#3b82f6',
+                  '#ec4899'
+                ],
+                borderWidth: 2
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              animation: {
+                duration: 2000,
+                easing: 'easeInOutQuart'
+              },
+              plugins: {
+                legend: {
+                  position: 'bottom',
+                  labels: {
+                    color: '#e5e7eb',
+                    font: {
+                      size: 9
+                    }
+                  }
+                }
+              },
+              scales: {
+                r: {
+                  ticks: {
+                    color: '#9ca3af',
+                    font: {
+                      size: 8
+                    }
+                  },
+                  grid: {
+                    color: 'rgba(75, 85, 99, 0.3)'
+                  }
+                }
+              }
+            }
+          });
+        }
+        
+        else if (chartId === 'bubbleChart' && !bubbleChart) {
+          bubbleChart = new Chart(ctx8, {
+            type: 'bubble',
+            data: {
+              datasets: [{
+                label: 'Highway Speeds',
+                data: [
+                  {x: 65, y: 4.2, r: 15},
+                  {x: 72, y: 8.1, r: 25},
+                  {x: 68, y: 6.7, r: 20},
+                  {x: 75, y: 12.3, r: 30},
+                  {x: 70, y: 7.8, r: 18}
+                ],
+                backgroundColor: 'rgba(34, 197, 94, 0.6)',
+                borderColor: '#22c55e'
+              }, {
+                label: 'City Speeds',
+                data: [
+                  {x: 25, y: 2.1, r: 12},
+                  {x: 35, y: 3.8, r: 22},
+                  {x: 28, y: 2.9, r: 16},
+                  {x: 32, y: 4.2, r: 19},
+                  {x: 30, y: 3.5, r: 14}
+                ],
+                backgroundColor: 'rgba(59, 130, 246, 0.6)',
+                borderColor: '#3b82f6'
+              }, {
+                label: 'School Zones',
+                data: [
+                  {x: 15, y: 0.8, r: 8},
+                  {x: 18, y: 1.2, r: 10},
+                  {x: 12, y: 0.5, r: 6},
+                  {x: 20, y: 1.8, r: 12}
+                ],
+                backgroundColor: 'rgba(239, 68, 68, 0.6)',
+                borderColor: '#ef4444'
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              animation: {
+                duration: 2000,
+                easing: 'easeInOutQuart'
+              },
+              plugins: {
+                legend: {
+                  position: 'top',
+                  labels: {
+                    color: '#e5e7eb',
+                    font: {
+                      size: 10
+                    }
+                  }
+                }
+              },
+              scales: {
+                x: {
+                  title: {
+                    display: true,
+                    text: 'Speed (mph)',
+                    color: '#9ca3af'
+                  },
+                  grid: {
+                    color: 'rgba(75, 85, 99, 0.3)'
+                  },
+                  ticks: {
+                    color: '#9ca3af',
+                    font: {
+                      size: 9
+                    }
+                  }
+                },
+                y: {
+                  title: {
+                    display: true,
+                    text: 'Fuel Efficiency (mpg)',
+                    color: '#9ca3af'
+                  },
+                  grid: {
+                    color: 'rgba(75, 85, 99, 0.3)'
+                  },
+                  ticks: {
+                    color: '#9ca3af',
+                    font: {
+                      size: 9
+                    }
+                  }
+                }
+              }
+            }
+          });
+        }
+        
+        advancedChartsObserver.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  });
+
+  // Observe all advanced chart containers
+  const advancedChartContainers = document.querySelectorAll('#radarChart, #polarChart, #bubbleChart');
+  advancedChartContainers.forEach(canvas => {
+    const container = canvas.closest('.animate-on-scroll');
+    if (container) {
+      advancedChartsObserver.observe(container);
+    }
+  });
+});
+// Theme Management
+let isDarkMode = true;
+
+function toggleTheme() {
+  isDarkMode = !isDarkMode;
+  
+  const body = document.body;
+  const sidebar = document.getElementById('sidebar');
+  const headerSection = document.getElementById('header-section');
+  const navSection = document.getElementById('nav-section');
+  const mainContent = document.getElementById('main-content');
+  const darkIcon = document.getElementById('darkIcon');
+  const lightIcon = document.getElementById('lightIcon');
+  const themeText = document.getElementById('themeText');
+  
+  // Get all cards and sections
+  const cards = document.querySelectorAll('.bg-gray-800, .bg-gray-700');
+  const tables = document.querySelectorAll('table');
+  const navButtons = document.querySelectorAll('.nav-button');
+  const headings = document.querySelectorAll('h1, h2, h3');
+  
+  if (isDarkMode) {
+    // Dark Mode
+    body.className = body.className.replace(/bg-white|text-gray-900/g, 'bg-gray-900 text-gray-100');
+    sidebar.className = sidebar.className.replace(/bg-white|text-gray-900/g, 'bg-gray-800 text-white');
+    headerSection.className = headerSection.className.replace(/border-gray-300/g, 'border-gray-700');
+    mainContent.className = mainContent.className.replace(/bg-white/g, 'bg-gray-900');
+    
+    // Update cards
+    cards.forEach(card => {
+      card.className = card.className.replace(/bg-white|bg-gray-100|border-gray-300|text-gray-900/g, 'bg-gray-800 border-gray-700 text-gray-100');
+    });
+    
+    // Update tables
+    tables.forEach(table => {
+      table.className = table.className.replace(/text-gray-900/g, 'text-gray-200');
+      const thead = table.querySelector('thead');
+      if (thead) thead.className = thead.className.replace(/bg-gray-100/g, 'bg-gray-700');
+    });
+    
+    // Update nav buttons
+    navButtons.forEach(btn => {
+      btn.className = btn.className.replace(/hover:bg-gray-200|text-gray-900/g, 'hover:bg-gray-700 text-white');
+    });
+    
+    // Update headings
+    headings.forEach(heading => {
+      heading.className = heading.className.replace(/text-gray-900/g, 'text-white');
+    });
+    
+    darkIcon.classList.remove('hidden');
+    lightIcon.classList.add('hidden');
+    themeText.textContent = 'Light Mode';
+  } else {
+    // Light Mode
+    body.className = body.className.replace(/bg-gray-900|text-gray-100/g, 'bg-white text-gray-900');
+    sidebar.className = sidebar.className.replace(/bg-gray-800|text-white/g, 'bg-white text-gray-900 border-r border-gray-300');
+    headerSection.className = headerSection.className.replace(/border-gray-700/g, 'border-gray-300');
+    mainContent.className = mainContent.className.replace(/bg-gray-900/g, 'bg-white');
+    
+    // Update cards
+    cards.forEach(card => {
+      card.className = card.className.replace(/bg-gray-800|border-gray-700|text-gray-100/g, 'bg-white border-gray-300 text-gray-900 shadow-md');
+    });
+    
+    // Update tables
+    tables.forEach(table => {
+      table.className = table.className.replace(/text-gray-200/g, 'text-gray-900');
+      const thead = table.querySelector('thead');
+      if (thead) thead.className = thead.className.replace(/bg-gray-700/g, 'bg-gray-100');
+    });
+    
+    // Update nav buttons
+    navButtons.forEach(btn => {
+      btn.className = btn.className.replace(/hover:bg-gray-700|text-white/g, 'hover:bg-gray-200 text-gray-900');
+      // Update SVG fill
+      const svg = btn.querySelector('svg');
+      if (svg) svg.setAttribute('fill', 'currentColor');
+    });
+    
+    // Update headings
+    headings.forEach(heading => {
+      heading.className = heading.className.replace(/text-white/g, 'text-gray-900');
+    });
+    
+    darkIcon.classList.add('hidden');
+    lightIcon.classList.remove('hidden');
+    themeText.textContent = 'Dark Mode';
+  }
+  
+  // Update chart colors if needed
+  updateChartThemes();
+}
+
+function updateChartThemes() {
+  // This would update chart colors if charts were already created
+  // For now, we'll just store the theme preference
+  localStorage.setItem('darkMode', isDarkMode);
+}
+
+// Initialize theme toggle
+document.addEventListener('DOMContentLoaded', function() {
+  // Check for saved theme preference
+  const savedTheme = localStorage.getItem('darkMode');
+  if (savedTheme !== null) {
+    isDarkMode = savedTheme === 'true';
+    if (!isDarkMode) {
+      toggleTheme();
+    }
+  }
+  
+  // Add event listener to theme toggle button
+  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+  
+  // ... rest of your existing DOMContentLoaded code
+});
+
+// Real-Time Data Management
+let realTimeData = {
+  alerts: [],
+  speed: 45,
+  battery: 87,
+  passengers: 3,
+  temperature: 185,
+  miles: 1247,
+  trips: 156,
+  weather: {
+    icon: '☀️',
+    desc: 'Clear skies, optimal conditions',
+    temp: 72
+  },
+  traffic: {
+    status: 'green',
+    desc: 'Light traffic on major routes',
+    avgSpeed: 35
+  },
+  charging: {
+    available: 12,
+    queue: 'No wait'
+  },
+  emergency: {
+    status: 'green',
+    desc: 'All systems operational',
+    responseTime: '< 30s'
+  }
+};
+
+// Alert types and messages
+const alertTypes = [
+  { type: 'info', icon: 'ℹ️', color: 'text-blue-400', messages: [
+    'AV-007 reached destination safely',
+    'Route optimization completed',
+    'Software update available',
+    'Passenger pickup confirmed'
+  ]},
+  { type: 'warning', icon: '⚠️', color: 'text-yellow-400', messages: [
+    'AV-012 low battery warning',
+    'Heavy traffic detected on Route 5',
+    'Weather conditions changing',
+    'Maintenance scheduled for AV-003'
+  ]},
+  { type: 'success', icon: '✅', color: 'text-green-400', messages: [
+    'AV-018 charging completed',
+    'Safety check passed',
+    'New route established',
+    'Emergency brake test successful'
+  ]},
+  { type: 'error', icon: '🚨', color: 'text-red-400', messages: [
+    'Sensor malfunction detected',
+    'Emergency override activated',
+    'Communication lost with AV-009',
+    'Critical system alert'
+  ]}
+];
+
+function generateRandomAlert() {
+  const alertType = alertTypes[Math.floor(Math.random() * alertTypes.length)];
+  const message = alertType.messages[Math.floor(Math.random() * alertType.messages.length)];
+  const timestamp = new Date().toLocaleTimeString();
+  
+  return {
+    type: alertType.type,
+    icon: alertType.icon,
+    color: alertType.color,
+    message: message,
+    timestamp: timestamp
+  };
+}
+
+function addAlert(alert) {
+  const alertFeed = document.getElementById('alertFeed');
+  
+  const alertElement = document.createElement('div');
+  alertElement.className = `bg-gray-700 p-2 rounded-lg border-l-4 border-${alert.type === 'error' ? 'red' : alert.type === 'warning' ? 'yellow' : alert.type === 'success' ? 'green' : 'blue'}-400 animate-slide-in`;
+  
+  alertElement.innerHTML = `
+    <div class="flex items-start gap-2">
+      <span class="text-sm">${alert.icon}</span>
+      <div class="flex-1">
+        <div class="text-xs ${alert.color} font-medium">${alert.message}</div>
+        <div class="text-xs text-gray-500 mt-1">${alert.timestamp}</div>
+      </div>
+    </div>
+  `;
+  
+  alertFeed.insertBefore(alertElement, alertFeed.firstChild);
+  
+  // Remove old alerts if too many
+  if (alertFeed.children.length > 8) {
+    alertFeed.removeChild(alertFeed.lastChild);
+  }
+}
+
+function updateGauges() {
+  // Update speed (30-70 mph)
+  realTimeData.speed = Math.max(30, Math.min(70, realTimeData.speed + (Math.random() - 0.5) * 8));
+  document.getElementById('speedValue').textContent = `${Math.round(realTimeData.speed)} mph`;
+  document.getElementById('speedBar').style.width = `${(realTimeData.speed / 75) * 100}%`;
+  
+  // Update battery (70-100%)
+  realTimeData.battery = Math.max(70, Math.min(100, realTimeData.battery + (Math.random() - 0.5) * 3));
+  document.getElementById('batteryValue').textContent = `${Math.round(realTimeData.battery)}%`;
+  document.getElementById('batteryBar').style.width = `${realTimeData.battery}%`;
+  
+  // Update passengers (0-4)
+  if (Math.random() < 0.1) { // 10% chance to change
+    realTimeData.passengers = Math.floor(Math.random() * 5);
+  }
+  document.getElementById('passengerValue').textContent = `${realTimeData.passengers}/4`;
+  document.getElementById('passengerBar').style.width = `${(realTimeData.passengers / 4) * 100}%`;
+  
+  // Update temperature (180-200°F)
+  realTimeData.temperature = Math.max(180, Math.min(200, realTimeData.temperature + (Math.random() - 0.5) * 4));
+  document.getElementById('tempValue').textContent = `${Math.round(realTimeData.temperature)}°F`;
+  document.getElementById('tempBar').style.width = `${((realTimeData.temperature - 160) / 60) * 100}%`;
+}
+
+function updateCounters() {
+  // Increment miles occasionally
+  if (Math.random() < 0.3) {
+    realTimeData.miles += Math.floor(Math.random() * 3) + 1;
+    document.getElementById('milesCounter').textContent = realTimeData.miles.toLocaleString();
+  }
+  
+  // Increment trips occasionally
+  if (Math.random() < 0.1) {
+    realTimeData.trips += 1;
+    document.getElementById('tripsCounter').textContent = realTimeData.trips;
+  }
+}
+
+function updateStatusCards() {
+  // Weather updates
+  const weathers = [
+    { icon: '☀️', desc: 'Clear skies, optimal conditions', temp: 72 },
+    { icon: '⛅', desc: 'Partly cloudy, good visibility', temp: 68 },
+    { icon: '🌧️', desc: 'Light rain, reduced visibility', temp: 65 },
+    { icon: '❄️', desc: 'Snow advisory, drive cautiously', temp: 32 }
+  ];
+  
+  if (Math.random() < 0.05) { // 5% chance to change weather
+    const weather = weathers[Math.floor(Math.random() * weathers.length)];
+    document.getElementById('weatherIcon').textContent = weather.icon;
+    document.getElementById('weatherDesc').textContent = weather.desc;
+    document.getElementById('weatherTemp').textContent = `${weather.temp}°F`;
+  }
+  
+  // Traffic updates
+  const trafficConditions = [
+    { status: 'green', desc: 'Light traffic on major routes', color: 'bg-green-400' },
+    { status: 'yellow', desc: 'Moderate congestion downtown', color: 'bg-yellow-400' },
+    { status: 'red', desc: 'Heavy traffic, delays expected', color: 'bg-red-400' }
+  ];
+  
+  if (Math.random() < 0.03) { // 3% chance to change traffic
+    const traffic = trafficConditions[Math.floor(Math.random() * trafficConditions.length)];
+    document.getElementById('trafficStatus').className = `w-3 h-3 ${traffic.color} rounded-full animate-pulse`;
+    document.getElementById('trafficDesc').textContent = traffic.desc;
+  }
+  
+  // Charging network updates
+  if (Math.random() < 0.08) { // 8% chance to update charging
+    const available = Math.floor(Math.random() * 15) + 5;
+    const queues = ['No wait', '5 min wait', '10 min wait', '15 min wait'];
+    const queue = queues[Math.floor(Math.random() * queues.length)];
+    
+    document.getElementById('chargingAvailable').textContent = `${available} stations available`;
+    document.getElementById('chargingQueue').textContent = queue;
+  }
+}
+
+function startRealTimeUpdates() {
+  // Add initial alerts
+  for (let i = 0; i < 3; i++) {
+    setTimeout(() => addAlert(generateRandomAlert()), i * 1000);
+  }
+  
+  // Update alerts every 5-15 seconds
+  setInterval(() => {
+    if (Math.random() < 0.7) { // 70% chance to add new alert
+      addAlert(generateRandomAlert());
+    }
+  }, Math.random() * 10000 + 5000);
+  
+  // Update gauges every 2 seconds
+  setInterval(updateGauges, 2000);
+  
+  // Update counters every 5 seconds
+  setInterval(updateCounters, 5000);
+  
+  // Update status cards every 8 seconds
+  setInterval(updateStatusCards, 8000);
+}
+
+// Initialize real-time feeds when page loads
+document.addEventListener('DOMContentLoaded', function() {
+  // ... existing DOMContentLoaded code ...
+  
+  // Start real-time updates after a short delay
+  setTimeout(startRealTimeUpdates, 2000);
+  
+  // Add event listener to theme toggle button
+  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+});
+
+// ... rest of your existing JavaScript code
+</script>
+
+<script src="dist/main.js"></script>
+</body>
+</html>
